@@ -17,8 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GoodsDetail"/>
+        <activity android:name=".GoodsDetail"
+            android:launchMode = "standard">
+
+        </activity>
         <receiver android:name=".StaticReceiver"
+            android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="randomRecommendation"/>

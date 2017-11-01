@@ -24,11 +24,12 @@ public class StaticReceiver extends BroadcastReceiver {
                 .setContentText(mBundle.get("Name") + "仅售 " + mBundle.get("Price") + "!")
                 .setSmallIcon(imageId)
                 .setLargeIcon(bitmap)
-                .setAutoCancel(true);
+                .setAutoCancel(true)
+                .setWhen(System.currentTimeMillis());
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, detailItent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, detailItent, PendingIntent.FLAG_CANCEL_CURRENT);
         builder.setContentIntent(pendingIntent);
-        Notification notify = builder.build();
-        notificationManager.notify(0, notify);
+        Notification notification1 = builder.build();
+        notificationManager.notify(0, notification1);
     }
 }

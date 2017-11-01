@@ -9,7 +9,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
-import android.content.IntentFilter;
 
 import java.util.ArrayList;
 
@@ -19,7 +18,6 @@ public class GoodsDetail extends AppCompatActivity {
     private String ShowName;
     private String Price;
     private String info;
-    private DynamicReceiver dynamicReceiver = new DynamicReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,27 +117,18 @@ public class GoodsDetail extends AppCompatActivity {
             }
         });
 
-        final Intent intent1 = new Intent("dynamic");
-        intent1.putExtras(mBundle);
         final GoodsInfo shoppingItem = new GoodsInfo(ShowName, info, Price);
-
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("dynamic");
-        registerReceiver(dynamicReceiver, intentFilter);
 
         final ImageButton shopcart = (ImageButton) findViewById(R.id.addshopcar);
         shopcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new MessageEvent(shoppingItem));
+                Intent intent1 = new Intent("dynamic");
+                intent1.putExtras(mBundle);
                 Toast.makeText(GoodsDetail.this,"商品已添加到购物车",Toast.LENGTH_SHORT).show();
                 sendBroadcast(intent1);
+                EventBus.getDefault().post(new MessageEvent(shoppingItem));
             }
         });
-    }
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        unregisterReceiver(dynamicReceiver);
     }
 }

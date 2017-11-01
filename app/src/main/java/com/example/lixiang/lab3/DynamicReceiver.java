@@ -23,12 +23,14 @@ public class DynamicReceiver extends BroadcastReceiver {
                     .setContentText(bundle.get("Name")+"已添加到购物车")
                     .setSmallIcon(imageId)
                     .setLargeIcon(bitmap)
-                    .setAutoCancel(true);
+                    .setAutoCancel(true)
+                    .setWhen(System.currentTimeMillis());
             Intent detailItent = new Intent(context, MainActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 2, detailItent, PendingIntent.FLAG_UPDATE_CURRENT);
+            detailItent.putExtra("add_in_shoplist", "yes");
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, detailItent, PendingIntent.FLAG_ONE_SHOT);
             builder.setContentIntent(pendingIntent);
             Notification notify = builder.build();
-            notificationManager.notify(0,notify);
+            notificationManager.notify((int)System.currentTimeMillis(),notify);
         }
     }
 }

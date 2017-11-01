@@ -2,6 +2,7 @@ package com.example.lixiang.lab3;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,12 +38,17 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton switch_btn;
     private LinearLayout ll;
 
+    DynamicReceiver dynamicReceiver = new DynamicReceiver();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_list);
 
         EventBus.getDefault().register(this);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("dynamic");
+        registerReceiver(dynamicReceiver, intentFilter);
 
         ll = (LinearLayout) findViewById(R.id.shop_cart);
         ll.setVisibility(View.INVISIBLE);
@@ -200,15 +206,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy(){
         super.onDestroy();
+        unregisterReceiver(dynamicReceiver);
         EventBus.getDefault().unregister(this);
     }
     @Override
     protected void onNewIntent(Intent intent){
+        ll.setVisibility(View.INVISIBLE);
         super.onNewIntent(intent);
-        Intent mintent = getIntent();
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        ll.setVisibility(View.VISIBLE);
-        switch_btn.setImageResource(R.mipmap.mainpage);
+        Bundle extras = intent.getExtras();
+        if(extras != null) {
+            if(extras.getString("add_in_shoplist").equals("yes")) {
+                mRecyclerView.setVisibility(View.INVISIBLE);
+                ll.setVisibility(View.VISIBLE);
+                switch_btn.setTag("1");
+                switch_btn.setImageResource(R.mipmap.mainpage);
+            }
+        }
+        setIntent(intent);
     }
 }
 
