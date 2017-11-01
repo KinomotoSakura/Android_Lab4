@@ -26,8 +26,7 @@ public class StaticReceiver extends BroadcastReceiver {
                 .setLargeIcon(bitmap)
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis());
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, detailItent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, detailItent, PendingIntent.FLAG_ONE_SHOT);
         builder.setContentIntent(pendingIntent);
         Notification notification1 = builder.build();
         notificationManager.notify(0, notification1);

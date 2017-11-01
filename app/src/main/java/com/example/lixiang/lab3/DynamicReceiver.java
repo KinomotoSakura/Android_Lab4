@@ -27,7 +27,7 @@ public class DynamicReceiver extends BroadcastReceiver {
                     .setWhen(System.currentTimeMillis());
             Intent detailItent = new Intent(context, MainActivity.class);
             detailItent.putExtra("add_in_shoplist", "yes");
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, detailItent, PendingIntent.FLAG_ONE_SHOT);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, detailItent, PendingIntent.FLAG_ONE_SHOT);
             builder.setContentIntent(pendingIntent);
             Notification notify = builder.build();
             notificationManager.notify((int)System.currentTimeMillis(),notify);

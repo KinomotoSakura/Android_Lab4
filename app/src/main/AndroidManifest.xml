@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".GoodsDetail"
-            android:launchMode = "standard">
+            android:launchMode = "singleTask">
 
         </activity>
         <receiver android:name=".StaticReceiver"
