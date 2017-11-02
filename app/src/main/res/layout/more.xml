@@ -14,6 +14,7 @@
             android:layout_height="match_parent"
             android:gravity="center|start"
             android:paddingStart="12dp"
+            android:background="#FFFFFF"
             android:textColor="#000000"
             android:textSize="18sp" />
 

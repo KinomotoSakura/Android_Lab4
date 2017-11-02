@@ -147,6 +147,7 @@
         android:id="@+id/function"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:background="#FFFFFF"
         android:layout_weight="2.4">
     </ListView>
 
